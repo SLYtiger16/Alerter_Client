@@ -51,7 +51,7 @@ socket.on("test", data => {
   );
   /////INSERT RELAY SCRIPTING HERE/////
   led.write(1);
-  setTimeout(() => led.writeSync(0), 1500);
+  setTimeout(() => led.write(0), 1500);
   let audio_success = 7;
   let visual_success = 5;
   /////INSERT RELAY SCRIPTING HERE/////
