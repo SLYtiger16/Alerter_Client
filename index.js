@@ -1,7 +1,7 @@
-const socket = require("socket.io-client")("http://localhost:6723/devices");
+const settings = require("./settings");
+const socket = require("socket.io-client")("http://"+settings.remote+":6723/devices");
 const moment = require("moment");
 const mongo = require("mongodb");
-const settings = require("./settings");
 
 //Make a connection to the mongo database and operate client within database connection
 mongo.MongoClient.connect(settings.db_server, { useNewUrlParser: true })
