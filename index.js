@@ -90,24 +90,28 @@ socket.on("connect", () =>
 );
 
 //Once a registered event is fired from the server, then save the socket_id to the pi database with a time
-socket.on("registered", data =>
-  db_socket_ids
-    .updateOne(
-      { socket_id: data },
-      {
-        $set: {
-          _id: new mongo.ObjectId(),
-          socket_id: data,
-          assigned: moment().toDate()
-        }
-      },
-      { upsert: true }
-    )
-    .then(() => console.log("Registered socket id: ", data))
-    .catch(err => {
-      console.error(err);
-      error(err);
-    })
+socket.on(
+  "registered",
+  data =>
+    // db_socket_ids
+    //   .updateOne(
+    //     { socket_id: data },
+    //     {
+    //       $set: {
+    //         _id: new mongo.ObjectId(),
+    //         socket_id: data,
+    //         assigned: moment().toDate()
+    //       }
+    //     },
+    //     { upsert: true }
+    //   )
+    //   .then(() =>
+    console.log("Registered socket id: ", data)
+  // )
+  // .catch(err => {
+  //   console.error(err);
+  //   error(err);
+  // })
 );
 
 //If a test is received, run it and pass the results to the feedback method
