@@ -3,6 +3,10 @@ const socket = require("socket.io-client")(
   "http://" + settings.remote + ":6723/devices"
 );
 const moment = require("moment");
+const Gpio = require("onoff").Gpio;
+
+//set led output to gpio pin
+const led = new Gpio(2, "out");
 
 //Set error method
 error = err =>
@@ -45,6 +49,8 @@ socket.on("test", data => {
       .format("YYYY-MM-DD HH:mm:ss")
   );
   /////INSERT RELAY SCRIPTING HERE/////
+  led.write(value ^ 1);
+  setTimeout(() => led.unexport());
   let audio_success = 7;
   let visual_success = 5;
   /////INSERT RELAY SCRIPTING HERE/////
