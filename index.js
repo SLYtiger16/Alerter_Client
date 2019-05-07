@@ -7,6 +7,7 @@ const Gpio = require("onoff").Gpio;
 
 //set led output to gpio pin
 const led = new Gpio(2, "out");
+led.write(0);
 
 //Set error method
 error = err =>
@@ -49,8 +50,9 @@ socket.on("test", data => {
       .format("YYYY-MM-DD HH:mm:ss")
   );
   /////INSERT RELAY SCRIPTING HERE/////
-  led.write(1);
-  setTimeout(() => led.write(0), 1500);
+  //led.write(1);
+  //setTimeout(() => led.write(0), 1500);
+  flash();
   let audio_success = 7;
   let visual_success = 5;
   /////INSERT RELAY SCRIPTING HERE/////
@@ -74,7 +76,27 @@ socket.on("alert", data => {
 
 //On socket disconnect alert console
 socket.on("disconnect", () => {
-  console.log("SOCKET CONNECTION LOST");
   led.write(0);
-  led.unexport();
-  );
+  console.log("SOCKET CONNECTION LOST");
+});
+
+const flash = () => {
+  let stopBlinking = false;
+ 
+// Toggle the state of the LED connected to GPIO2 every 200ms
+const blinkLed = () => {
+  if (stopBlinking) {
+    return led.write(0);
+  }
+ 
+  led.read()
+    .then(value => led.write(value ^ 1))
+    .then(_ => setTimeout(blinkLed, 200))
+    .catch(err => console.log(err));
+};
+ 
+blinkLed();
+ 
+// Stop blinking the LED after 5 seconds
+setTimeout(_ => stopBlinking = true, 5000);
+}
