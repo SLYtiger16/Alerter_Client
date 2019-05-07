@@ -7,7 +7,6 @@ const Gpio = require("onoff").Gpio;
 
 //set led output to gpio pin
 const led = new Gpio(2, "out");
-led.unexport();
 
 //Set error method
 error = err =>
@@ -74,4 +73,8 @@ socket.on("alert", data => {
 });
 
 //On socket disconnect alert console
-socket.on("disconnect", () => console.log("SOCKET CONNECTION LOST"));
+socket.on("disconnect", () => {
+  console.log("SOCKET CONNECTION LOST");
+  led.write(0);
+  led.unexport();
+  );
