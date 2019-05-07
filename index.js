@@ -7,6 +7,7 @@ const Gpio = require("onoff").Gpio;
 
 //set led output to gpio pin
 const led = new Gpio(2, "out");
+led.unexport();
 
 //Set error method
 error = err =>
