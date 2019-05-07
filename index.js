@@ -49,7 +49,7 @@ socket.on("test", data => {
       .format("YYYY-MM-DD HH:mm:ss")
   );
   /////INSERT RELAY SCRIPTING HERE/////
-  led.write(value ^ 1);
+  led.write(1);
   setTimeout(() => led.unexport());
   let audio_success = 7;
   let visual_success = 5;
